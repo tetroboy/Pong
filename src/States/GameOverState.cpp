@@ -32,6 +32,6 @@ void GameOverState::update(float dt) {
 void GameOverState::render(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
 
-    if (titleText) window.draw(*titleText.get());
-    if (messageText) window.draw(*messageText.get());
+    if (titleText) window.draw(*titleText);
+    if (messageText) window.draw(*messageText);
 }

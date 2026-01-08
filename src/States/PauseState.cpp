@@ -9,14 +9,14 @@ PauseState::PauseState(Game& g) : GameState(g) {
     resumeText = std::make_unique<sf::Text>(Constants::globalFont,"RESUME",50);
     exitText = std::make_unique<sf::Text>(Constants::globalFont,"EXIT",50);
     
-    pauseText.get()->setFillColor(sf::Color::Yellow);
-    pauseText.get()->setPosition(sf::Vector2f(350.f, 100.f));
+    pauseText->setFillColor(sf::Color::Yellow);
+    pauseText->setPosition(sf::Vector2f(350.f, 100.f));
 
-    resumeText.get()->setFillColor(sf::Color::Cyan);
-    resumeText.get()->setPosition(sf::Vector2f(350.f, 250.f));
+    resumeText->setFillColor(sf::Color::Cyan);
+    resumeText->setPosition(sf::Vector2f(350.f, 250.f));
 
-    exitText.get()->setFillColor(sf::Color::Red);
-    exitText.get()->setPosition(sf::Vector2f(350.f, 350.f));
+    exitText->setFillColor(sf::Color::Red);
+    exitText->setPosition(sf::Vector2f(350.f, 350.f));
 }
 
 void PauseState::handleEvents(const sf::Event& event) {
@@ -44,7 +44,7 @@ void PauseState::update(float dt) {
 void PauseState::render(sf::RenderWindow& window) {
     window.clear(sf::Color(0, 0, 0, 200));  
 
-    if(pauseText) window.draw(*pauseText.get());
-    if(resumeText) window.draw(*resumeText.get());
-    if(exitText) window.draw(*exitText.get());
+    if(pauseText) window.draw(*pauseText);
+    if(resumeText) window.draw(*resumeText);
+    if(exitText) window.draw(*exitText);
 }

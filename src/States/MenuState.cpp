@@ -12,13 +12,13 @@ MenuState::MenuState(Game& g) : GameState(g) {
     normalText = std::make_unique<sf::Text>(Constants::globalFont,"NORMAL", 40);
     hardText = std::make_unique<sf::Text>(Constants::globalFont,"HARD", 40);
 
-    title.get()->setFillColor(sf::Color::White);
-    title.get()->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - title.get()->getCharacterSize(),title.get()->getCharacterSize() ));
+    title->setFillColor(sf::Color::White);
+    title->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - title->getCharacterSize(),title->getCharacterSize() ));
 
-    exitText.get()->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - exitText.get()->getCharacterSize(), Constants::SCREEN_HEIGHT - (exitText.get()->getCharacterSize() * 2)));
-    easyText.get()->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - easyText.get()->getCharacterSize(), Constants::SCREEN_HEIGHT / 3));
-    normalText.get()->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - normalText.get()->getCharacterSize(), Constants::SCREEN_HEIGHT / 2));
-    hardText.get()->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - hardText.get()->getCharacterSize(), Constants::SCREEN_HEIGHT / 1.5));
+    exitText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - exitText->getCharacterSize(), Constants::SCREEN_HEIGHT - (exitText->getCharacterSize() * 2)));
+    easyText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - easyText->getCharacterSize(), Constants::SCREEN_HEIGHT / 3));
+    normalText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - normalText->getCharacterSize(), Constants::SCREEN_HEIGHT / 2));
+    hardText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - hardText->getCharacterSize(), Constants::SCREEN_HEIGHT / 1.5));
 
     updateHighlight();
 }
@@ -71,9 +71,9 @@ void MenuState::update(float dt) {
 
 void MenuState::render(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
-    if (title) window.draw(*title.get());
-    if (easyText) window.draw(*easyText.get());
-    if (normalText) window.draw(*normalText.get());
-    if (hardText) window.draw(*hardText.get());
-    if (exitText) window.draw(*exitText.get());
+    if (title) window.draw(*title);
+    if (easyText) window.draw(*easyText);
+    if (normalText) window.draw(*normalText);
+    if (hardText) window.draw(*hardText);
+    if (exitText) window.draw(*exitText);
 }

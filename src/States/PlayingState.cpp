@@ -10,7 +10,7 @@ PlayingState::PlayingState(Game& g) : GameState(g) {
     auto botPaddle = factory.createBotPaddle();
     auto ball = factory.createBall();
 
-    botPaddle.get()->setDifficulty(game.getDifficulty());
+    botPaddle->setDifficulty(game.getDifficulty());
 
     entities.push_back(std::move(playerPaddle));
     entities.push_back(std::move(botPaddle));
