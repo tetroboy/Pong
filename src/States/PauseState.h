@@ -5,15 +5,20 @@
 
 class PauseState : public GameState {
 private:
-    Game& game;
+    enum class PauseOption {
+        Resume,
+        ExitToMenu
+    };
+
     std::unique_ptr<sf::Text> pauseText;
     std::unique_ptr<sf::Text> resumeText;
     std::unique_ptr<sf::Text> exitText;
-    int selectedOption = 0;  // 0 = Resume, 1 = Exit to Menu
+    
+    PauseOption selectedOption = PauseOption::Resume;
 
 public:
     explicit PauseState(Game& g);
-    void handleEvents(Game& game, const sf::Event& event) override;
-    void update(Game& game, float dt) override;
-    void render(Game& game, sf::RenderWindow& window) override;
+    void handleEvents( const sf::Event& event) override;
+    void update(float dt) override;
+    void render(sf::RenderWindow& window) override;
 };

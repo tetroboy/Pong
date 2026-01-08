@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SFML/Window/Keyboard.hpp>
 
-PlayingState::PlayingState(Game& g) : game(g) {
+PlayingState::PlayingState(Game& g) : GameState(g) {
     auto& factory = game.getFactory();
     auto& score = game.getScoreManager();
 
@@ -26,13 +26,13 @@ PlayingState::PlayingState(Game& g) : game(g) {
     hitSound = std::make_unique<sf::Sound>(hitBuffer);
     goalSound = std::make_unique<sf::Sound>(goalBuffer);
 
-    hitSound->setVolume(70.0f);
-    goalSound->setVolume(80.0f);
+    hitSound->setVolume(Constants::HIT_SOUND_VOLUME);
+    goalSound->setVolume(Constants::GOAL_SOUND_VOLUME);
 
     score.registerObserver(&uiManager);
 }
 
-void PlayingState::handleEvents(Game& game, const sf::Event& event) {
+void PlayingState::handleEvents(const sf::Event& event) {
     if (event.is<sf::Event::KeyPressed>()) {
         if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) {
             if (keyPressed->scancode == sf::Keyboard::Scancode::Escape) {    
@@ -42,7 +42,7 @@ void PlayingState::handleEvents(Game& game, const sf::Event& event) {
     }
 }
 
-void PlayingState::update(Game& g, float dt) {
+void PlayingState::update(float dt) {
     auto* ball = dynamic_cast<Ball*>(entities[2].get());
     auto* player = dynamic_cast<PlayerPaddle*>(entities[0].get());  // если PlayerPaddle отдельный класс
     auto* bot = dynamic_cast<BotPaddle*>(entities[1].get());
@@ -82,7 +82,7 @@ void PlayingState::update(Game& g, float dt) {
     }
 
     
-    auto& score = g.getScoreManager();
+    auto& score = game.getScoreManager();
     if (ball->outOfBoundsLeft()) {
         score.incrementBot();
         goalSound->play();
@@ -94,14 +94,14 @@ void PlayingState::update(Game& g, float dt) {
         ball->reset();
     }
 
-    if (score.getPlayerScore() >= 10) {
-        g.changeState(std::make_unique<GameOverState>(g, true)); 
-    } else if (score.getBotScore() >= 10) {
-        g.changeState(std::make_unique<GameOverState>(g, false));
+    if (score.getPlayerScore() >= Constants::MAX_GOALS) {
+        game.changeState(std::make_unique<GameOverState>(game,GameResult::Victory)); 
+    } else if (score.getBotScore() >= Constants::MAX_GOALS) {
+        game.changeState(std::make_unique<GameOverState>(game,GameResult::Defeat));
     }
 }
 
-void PlayingState::render(Game& g, sf::RenderWindow& window) {
+void PlayingState::render(sf::RenderWindow& window) {
     sf::RectangleShape line(sf::Vector2f(Constants::LINE_OFFSET * 2, Constants::SCREEN_HEIGHT));
     line.setFillColor(sf::Color(100, 100, 100));
     line.setPosition(sf::Vector2f((Constants::SCREEN_WIDTH / 2) - Constants::LINE_OFFSET, 0));
@@ -109,5 +109,5 @@ void PlayingState::render(Game& g, sf::RenderWindow& window) {
 
     for (auto& entity : entities) entity->render(window);
 
-    uiManager.render(window, g.getScoreManager().getPlayerScore(), g.getScoreManager().getBotScore());
+    uiManager.render(window, game.getScoreManager().getPlayerScore(), game.getScoreManager().getBotScore());
 }

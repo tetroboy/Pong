@@ -23,14 +23,14 @@ void Game::run() {
                 window.close();
             }
 
-            currentState->handleEvents(*this, event);  
+            currentState->handleEvents(event);  
         }
         
-        currentState->update(*this, dt);
+        currentState->update(dt);
 
         window.clear(sf::Color::Black);
         
-        currentState->render(*this, window);
+        currentState->render(window);
         
         window.display();
         

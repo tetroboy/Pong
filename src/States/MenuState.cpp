@@ -3,7 +3,7 @@
 #include "../Utils/Constants.h"
 #include <iostream>
 
-MenuState::MenuState(Game& g) : game(g) {
+MenuState::MenuState(Game& g) : GameState(g) {
 
     title = std::make_unique<sf::Text>(Constants::globalFont,"PONG",80);
     exitText = std::make_unique<sf::Text>(Constants::globalFont,"EXIT",50);
@@ -24,44 +24,52 @@ MenuState::MenuState(Game& g) : game(g) {
 }
 
 void MenuState::updateHighlight() {
-    easyText->setFillColor(selectedOption == 0 ? sf::Color::Yellow : sf::Color::White);
-    normalText->setFillColor(selectedOption == 1 ? sf::Color::Yellow : sf::Color::White);
-    hardText->setFillColor(selectedOption == 2 ? sf::Color::Yellow : sf::Color::White);
-    exitText->setFillColor(selectedOption == 3 ? sf::Color::Yellow : sf::Color::Red);
+    easyText->setFillColor(selectedOption == MenuOption::Easy ? sf::Color::Yellow : sf::Color::White);
+    normalText->setFillColor(selectedOption == MenuOption::Normal ? sf::Color::Yellow : sf::Color::White);
+    hardText->setFillColor(selectedOption == MenuOption::Hard ? sf::Color::Yellow : sf::Color::White);
+    exitText->setFillColor(selectedOption == MenuOption::Exit ? sf::Color::Yellow : sf::Color::Red);
 }
 
 
-void MenuState::handleEvents(Game& game, const sf::Event& event) {
+void MenuState::handleEvents(const sf::Event& event) {
     if (event.is<sf::Event::KeyPressed>()) {
         auto* key = event.getIf<sf::Event::KeyPressed>();
         if (key->scancode == sf::Keyboard::Scancode::Down) {
-            selectedOption = (selectedOption + 1) % 4;
-            updateHighlight();
+            switch (selectedOption) {
+                case MenuOption::Easy:   selectedOption = MenuOption::Normal; break;
+                case MenuOption::Normal: selectedOption = MenuOption::Hard; break;
+                case MenuOption::Hard:   selectedOption = MenuOption::Exit; break;
+                case MenuOption::Exit:   selectedOption = MenuOption::Easy; break;
+            }
         } else if (key->scancode == sf::Keyboard::Scancode::Up) {
-            selectedOption = (selectedOption - 1 + 4) % 4;
-            updateHighlight();
+            switch (selectedOption) {
+                case MenuOption::Easy:   selectedOption = MenuOption::Exit; break;
+                case MenuOption::Normal: selectedOption = MenuOption::Easy; break;
+                case MenuOption::Hard:   selectedOption = MenuOption::Normal; break;
+                case MenuOption::Exit:   selectedOption = MenuOption::Hard; break;
+            }
         } else if (key->scancode == sf::Keyboard::Scancode::Enter) {
-            if (selectedOption == 3) {
-                game.getWindow().close();
-            } else {
-                Difficulty diff;
-                if (selectedOption == 0) diff = Difficulty::Easy;
-                else if (selectedOption == 1) diff = Difficulty::Normal;
-                else diff = Difficulty::Hard;
-
-                game.setDifficulty(diff);
-                game.changeState(std::make_unique<PlayingState>(game));
+            switch (selectedOption) {
+                case MenuOption::Easy:
+                case MenuOption::Normal:
+                case MenuOption::Hard:
+                    game.setDifficulty(static_cast<Difficulty>(static_cast<int>(selectedOption)));
+                    game.changeState(std::make_unique<PlayingState>(game));
+                    break;
+                case MenuOption::Exit:
+                    game.getWindow().close();
+                    break;
             }
         }
         
     }
 }
 
-void MenuState::update(Game& game, float dt) {
+void MenuState::update(float dt) {
     updateHighlight();
 }
 
-void MenuState::render(Game& game, sf::RenderWindow& window) {
+void MenuState::render(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
     if (title) window.draw(*title.get());
     if (easyText) window.draw(*easyText.get());

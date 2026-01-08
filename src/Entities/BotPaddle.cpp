@@ -10,23 +10,23 @@ void BotPaddle::setDifficulty(Difficulty diff) {
 }
 
 void BotPaddle::update(float dt, const Ball& ball) {
-    Paddle::update(dt); 
+    Paddle::update(dt);
 
-    
     if (ball.getVelocity().x > 0) {
         float ballY = ball.getPosition().y;
-        float paddleY = position.y;
+        float paddleY = shape->getPosition().y;
 
         float diff = ballY - paddleY;
         float botSpeed = speed * botSpeedFactor;
 
         if (std::abs(diff) > 30.0f) {
             if (diff > 0) {
-                position.y += botSpeed * dt;
+                shape->move(sf::Vector2f(0.0f, botSpeed * dt));
             } else {
-                position.y -= botSpeed * dt;
+                shape->move(sf::Vector2f(0.0f, -botSpeed * dt));
             }
         }
-
     }
+
+    Paddle::update(dt);
 }

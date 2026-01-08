@@ -19,7 +19,6 @@
 
 class PlayingState : public GameState {
 private:
-    Game& game;
     std::vector<std::unique_ptr<Entity>> entities;
     UIManager uiManager;
     sf::Clock gameClock;
@@ -28,8 +27,8 @@ private:
     std::unique_ptr<sf::Sound> hitSound;
     std::unique_ptr<sf::Sound> goalSound;
 public:
-    PlayingState(Game& game);
-    void handleEvents(Game& game,const sf::Event& event) override;
-    void update(Game& game, float dt) override;
-    void render(Game& game, sf::RenderWindow& window) override;
+    explicit PlayingState(Game& game);
+    void handleEvents(const sf::Event& event) override;
+    void update(float dt) override;
+    void render(sf::RenderWindow& window) override;
 };
