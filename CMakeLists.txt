@@ -58,7 +58,6 @@ if(WIN32)
         $<TARGET_FILE_DIR:Pong>)
 endif()
 
-# Копіюємо папку resources (текстури, шрифти, звуки)
 add_custom_command(TARGET Pong POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     "${CMAKE_CURRENT_SOURCE_DIR}/resources"

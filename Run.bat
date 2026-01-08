@@ -1,6 +1,6 @@
 @echo off
 echo ===================================
-echo   Сборка и запуск Pong (Windows)
+echo   Building and starting Pong (Windows)
 echo ===================================
 
 if not exist build mkdir build
@@ -10,7 +10,7 @@ cmake .. -G "Visual Studio 17 2022" -A x64
 
 if %errorlevel% neq 0 (
     echo.
-    echo ОШИБКА: CMake конфигурация не удалась
+    echo ОШИБКА: CMake configuration error
     pause
     exit /b %errorlevel%
 )
@@ -19,13 +19,14 @@ cmake --build . --config Release
 
 if %errorlevel% neq 0 (
     echo.
-    echo ОШИБКА: Сборка не удалась!
+    echo FAIL: Build failed
     pause
     exit /b %errorlevel%
 )
 
 echo.
-echo Сборка завершена успешно!
-echo Запуск игры...
+echo Succesfully builded!
+echo Game start...
 
-Release\Pong.exe
+cd Release
+Pong.exe
