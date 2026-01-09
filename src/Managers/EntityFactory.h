@@ -8,6 +8,6 @@
 class EntityFactory {
 public:
     std::unique_ptr<Ball> createBall();
-    std::unique_ptr<Paddle> createPlayerPaddle();
+    std::unique_ptr<PlayerPaddle> createPlayerPaddle();
     std::unique_ptr<BotPaddle> createBotPaddle();  
 };

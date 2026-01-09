@@ -5,7 +5,7 @@ std::unique_ptr<Ball> EntityFactory::createBall() {
     return ball;
 }
 
-std::unique_ptr<Paddle> EntityFactory::createPlayerPaddle() {
+std::unique_ptr<PlayerPaddle> EntityFactory::createPlayerPaddle() {
     auto paddle = std::make_unique<PlayerPaddle>();  
     paddle->setPosition({Constants::PADDLE_OFFSET, Constants::SCREEN_HEIGHT / 2});
     return paddle;

@@ -6,15 +6,11 @@ PlayingState::PlayingState(Game& g) : GameState(g) {
     auto& factory = game.getFactory();
     auto& score = game.getScoreManager();
 
-    auto playerPaddle = factory.createPlayerPaddle();
-    auto botPaddle = factory.createBotPaddle();
-    auto ball = factory.createBall();
+    player = factory.createPlayerPaddle();
+    bot = factory.createBotPaddle();
+    ball = factory.createBall();
 
-    botPaddle->setDifficulty(game.getDifficulty());
-
-    entities.push_back(std::move(playerPaddle));
-    entities.push_back(std::move(botPaddle));
-    entities.push_back(std::move(ball));
+    bot->setDifficulty(game.getDifficulty());
 
     if (!hitBuffer.loadFromFile("resources/hit.mp3")) {
         std::cout << "erro hit.mp3" << std::endl;
@@ -43,9 +39,6 @@ void PlayingState::handleEvents(const sf::Event& event) {
 }
 
 void PlayingState::update(float dt) {
-    auto* ball = dynamic_cast<Ball*>(entities[2].get());
-    auto* player = dynamic_cast<PlayerPaddle*>(entities[0].get());  // если PlayerPaddle отдельный класс
-    auto* bot = dynamic_cast<BotPaddle*>(entities[1].get());
 
     if (!ball || !player || !bot) return;
 
@@ -107,7 +100,9 @@ void PlayingState::render(sf::RenderWindow& window) {
     line.setPosition(sf::Vector2f((Constants::SCREEN_WIDTH / 2) - Constants::LINE_OFFSET, 0));
     window.draw(line);
 
-    for (auto& entity : entities) entity->render(window);
+    player->render(window);
+    bot->render(window);
+    ball->render(window);
 
     uiManager.render(window, game.getScoreManager().getPlayerScore(), game.getScoreManager().getBotScore());
 }

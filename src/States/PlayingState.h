@@ -19,7 +19,9 @@
 
 class PlayingState : public GameState {
 private:
-    std::vector<std::unique_ptr<Entity>> entities;
+    std::unique_ptr<PlayerPaddle> player;
+    std::unique_ptr<BotPaddle> bot;
+    std::unique_ptr<Ball> ball;
     UIManager uiManager;
     sf::Clock gameClock;
     sf::SoundBuffer hitBuffer;
