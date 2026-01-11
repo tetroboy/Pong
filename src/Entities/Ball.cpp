@@ -7,8 +7,7 @@ Ball::Ball() {
     shape->setOrigin(sf::Vector2f(radius, radius));
     velocity.x = 1;
     velocity.y = 1;
-    setPosition({Constants::SCREEN_WIDTH / 2, Constants::SCREEN_HEIGHT / 2});
-    reset(); 
+    resetPosition();
 }
 
 void Ball::update(float dt) {
@@ -59,19 +58,8 @@ bool Ball::outOfBoundsRight() const {
     return shape->getPosition().x + radius > Constants::SCREEN_WIDTH;
 }
 
-void Ball::reset() {
-    shape->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 2.0f));
-
-    velocity.x = Random::sign();
-    velocity.y = Random::floatInRange(-0.3f, 0.3f);
-
-    float length = std::hypot(velocity.x, velocity.y);
-    if (length > 0.1f) {
-        velocity.x /= length;
-        velocity.y /= length;
-    }
-
-    currentSpeed = initialSpeed;
+void Ball::resetPosition() {
+    shape->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 2.0f)); 
 }
 
 float Ball::getRadius() const {

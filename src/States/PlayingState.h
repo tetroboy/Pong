@@ -28,6 +28,9 @@ private:
     sf::SoundBuffer goalBuffer;
     std::unique_ptr<sf::Sound> hitSound;
     std::unique_ptr<sf::Sound> goalSound;
+
+    void resetBall();
+
 public:
     explicit PlayingState(Game& game);
     void handleEvents(const sf::Event& event) override;

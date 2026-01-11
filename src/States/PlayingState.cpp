@@ -26,6 +26,7 @@ PlayingState::PlayingState(Game& g) : GameState(g) {
     goalSound->setVolume(Constants::GOAL_SOUND_VOLUME);
 
     score.registerObserver(&uiManager);
+    resetBall();
 }
 
 void PlayingState::handleEvents(const sf::Event& event) {
@@ -79,12 +80,12 @@ void PlayingState::update(float dt) {
     if (ball->outOfBoundsLeft()) {
         score.incrementBot();
         goalSound->play();
-        ball->reset();
+        resetBall();
 
     } else if (ball->outOfBoundsRight()) {
         score.incrementPlayer();
         goalSound->play();
-        ball->reset();
+        resetBall();
     }
 
     if (score.getPlayerScore() >= Constants::MAX_GOALS) {
@@ -105,4 +106,20 @@ void PlayingState::render(sf::RenderWindow& window) {
     ball->render(window);
 
     uiManager.render(window, game.getScoreManager().getPlayerScore(), game.getScoreManager().getBotScore());
+}
+
+void PlayingState::resetBall() {
+    ball->resetPosition(); 
+
+    float xDir = Random::sign();
+
+    sf::Vector2f newVel(xDir, Random::floatInRange(-0.3f, 0.3f));
+    float length = std::hypot(newVel.x, newVel.y);
+    if (length > 0.1f) {
+        newVel.x /= length;
+        newVel.y /= length;
+    }
+
+    ball->setVelocity(newVel);
+    ball->setSpeed(ball->getInitialSpeed());
 }
