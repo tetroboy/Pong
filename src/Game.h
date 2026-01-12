@@ -7,21 +7,21 @@
 
 class Game {
 private:
-    sf::RenderWindow window;
-    std::unique_ptr<GameState> currentState;
-    EntityFactory factory;
-    ScoreManager scoreManager;
-    Difficulty currentDifficulty = Difficulty::Normal;
+    sf::RenderWindow m_window;
+    std::unique_ptr<GameState> m_currentState;
+    EntityFactory m_factory;
+    ScoreManager m_scoreManager;
+    Difficulty m_currentDifficulty = Difficulty::Normal;
 public:
     Game();
     void run();
 
-    sf::RenderWindow& getWindow() { return window; }
-    EntityFactory& getFactory() { return factory; }
-    ScoreManager& getScoreManager() { return scoreManager; }
+    sf::RenderWindow& getWindow() { return m_window; }
+    EntityFactory& getFactory() { return m_factory; }
+    ScoreManager& getScoreManager() { return m_scoreManager; }
 
     void changeState(std::unique_ptr<GameState> newState);
 
-    Difficulty getDifficulty() const { return currentDifficulty; }
-    void setDifficulty(Difficulty diff) { currentDifficulty = diff; }
+    Difficulty getDifficulty() const { return m_currentDifficulty; }
+    void setDifficulty(Difficulty diff) { m_currentDifficulty = diff; }
 };

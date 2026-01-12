@@ -19,15 +19,15 @@
 
 class PlayingState : public GameState {
 private:
-    std::unique_ptr<PlayerPaddle> player;
-    std::unique_ptr<BotPaddle> bot;
-    std::unique_ptr<Ball> ball;
-    UIManager uiManager;
-    sf::Clock gameClock;
-    sf::SoundBuffer hitBuffer;
-    sf::SoundBuffer goalBuffer;
-    std::unique_ptr<sf::Sound> hitSound;
-    std::unique_ptr<sf::Sound> goalSound;
+    std::unique_ptr<PlayerPaddle> m_player;
+    std::unique_ptr<BotPaddle> m_bot;
+    std::unique_ptr<Ball> m_ball;
+    UIManager m_uiManager;
+    sf::Clock m_gameClock;
+    sf::SoundBuffer m_hitBuffer;
+    sf::SoundBuffer m_goalBuffer;
+    std::unique_ptr<sf::Sound> m_hitSound;
+    std::unique_ptr<sf::Sound> m_goalSound;
 
     void resetBall();
 

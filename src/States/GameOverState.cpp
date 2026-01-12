@@ -3,17 +3,17 @@
 
 GameOverState::GameOverState(Game& g, GameResult res) : GameState(g), result(res) {
     
-    titleText = std::make_unique<sf::Text>(Constants::globalFont, 
+    m_titleText = std::make_unique<sf::Text>(Constants::globalFont, 
                                            result == GameResult::Victory ? "WIN!" : "LOSE!", 
                                            100);
-    titleText->setFillColor(result == GameResult::Victory ? sf::Color::Green : sf::Color::Red);
-    titleText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 4.0f));
+    m_titleText->setFillColor(result == GameResult::Victory ? sf::Color::Green : sf::Color::Red);
+    m_titleText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 4.0f));
 
-    messageText = std::make_unique<sf::Text>(Constants::globalFont, 
+    m_messageText = std::make_unique<sf::Text>(Constants::globalFont, 
                                              result == GameResult::Victory ? "You win!" : "You lose!", 
                                              40);
-    messageText->setFillColor(sf::Color::White);
-    messageText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 2.0f));
+    m_messageText->setFillColor(sf::Color::White);
+    m_messageText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 2.0f));
 
 }
 
@@ -32,6 +32,6 @@ void GameOverState::update(float dt) {
 void GameOverState::render(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
 
-    if (titleText) window.draw(*titleText);
-    if (messageText) window.draw(*messageText);
+    if (m_titleText) window.draw(*m_titleText);
+    if (m_messageText) window.draw(*m_messageText);
 }

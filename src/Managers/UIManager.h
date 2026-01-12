@@ -6,9 +6,9 @@
 
 class UIManager : public Observer {
 private:
-    std::unique_ptr<sf::Text> titleText;
-    std::unique_ptr<sf::Text> playerText;
-    std::unique_ptr<sf::Text> botText;
+    std::unique_ptr<sf::Text> m_titleText;
+    std::unique_ptr<sf::Text> m_playerText;
+    std::unique_ptr<sf::Text> m_botText;
 
 public:
     UIManager();

@@ -6,26 +6,26 @@ PlayingState::PlayingState(Game& g) : GameState(g) {
     auto& factory = game.getFactory();
     auto& score = game.getScoreManager();
 
-    player = factory.createPlayerPaddle();
-    bot = factory.createBotPaddle();
-    ball = factory.createBall();
+    m_player = factory.createPlayerPaddle();
+    m_bot = factory.createBotPaddle();
+    m_ball = factory.createBall();
 
-    bot->setDifficulty(game.getDifficulty());
+    m_bot->setDifficulty(game.getDifficulty());
 
-    if (!hitBuffer.loadFromFile("resources/hit.mp3")) {
+    if (!m_hitBuffer.loadFromFile("resources/hit.mp3")) {
         std::cout << "erro hit.mp3" << std::endl;
     }
-    if (!goalBuffer.loadFromFile("resources/bounce.mp3")) {
+    if (!m_goalBuffer.loadFromFile("resources/bounce.mp3")) {
         std::cout << "erro goal.mp3" << std::endl;
     }
 
-    hitSound = std::make_unique<sf::Sound>(hitBuffer);
-    goalSound = std::make_unique<sf::Sound>(goalBuffer);
+    m_hitSound = std::make_unique<sf::Sound>(m_hitBuffer);
+    m_goalSound = std::make_unique<sf::Sound>(m_goalBuffer);
 
-    hitSound->setVolume(Constants::HIT_SOUND_VOLUME);
-    goalSound->setVolume(Constants::GOAL_SOUND_VOLUME);
+    m_hitSound->setVolume(Constants::HIT_SOUND_VOLUME);
+    m_goalSound->setVolume(Constants::GOAL_SOUND_VOLUME);
 
-    score.registerObserver(&uiManager);
+    score.registerObserver(&m_uiManager);
     resetBall();
 }
 
@@ -41,50 +41,50 @@ void PlayingState::handleEvents(const sf::Event& event) {
 
 void PlayingState::update(float dt) {
 
-    if (!ball || !player || !bot) return;
+    if (!m_ball || !m_player || !m_bot) return;
 
-    player->update(dt);
+    m_player->update(dt);
 
-    bot->update(dt, *ball);
+    m_bot->update(dt, *m_ball);
 
-    ball->update(dt);
+    m_ball->update(dt);
     
-    if (!ball || !player || !bot) return;
+    if (!m_ball || !m_player || !m_bot) return;
 
-    sf::FloatRect ballBounds = ball->getBounds();
-    sf::FloatRect playerBounds = player->getBounds();
-    sf::FloatRect botBounds = bot->getBounds();
+    sf::FloatRect ballBounds = m_ball->getBounds();
+    sf::FloatRect playerBounds = m_player->getBounds();
+    sf::FloatRect botBounds = m_bot->getBounds();
 
     if (ballBounds.findIntersection(playerBounds).has_value() && playerBounds.position.x > 0) {
         float ballRight = ballBounds.position.x + ballBounds.size.x;
         float paddleRight = playerBounds.position.x + playerBounds.size.x;
         if (ballRight > playerBounds.position.x) {
-            ball->setPosition({paddleRight + ball->getRadius(), ball->getPosition().y});
+            m_ball->setPosition({paddleRight + m_ball->getRadius(), m_ball->getPosition().y});
             
         }
-        hitSound->play();
-        ball->bounceHorizontal(playerBounds);
+        m_hitSound->play();
+        m_ball->bounceHorizontal(playerBounds);
     }
     if (ballBounds.findIntersection(botBounds).has_value() && botBounds.position.x > 0) {
         float ballLeft = ballBounds.position.x;
         float botLeft = botBounds.position.x;
         if (ballLeft < botLeft + botBounds.size.x) {
-            ball->setPosition({botLeft - ball->getRadius(), ball->getPosition().y});
+            m_ball->setPosition({botLeft - m_ball->getRadius(), m_ball->getPosition().y});
         }
-        hitSound->play();
-        ball->bounceHorizontal(botBounds);
+        m_hitSound->play();
+        m_ball->bounceHorizontal(botBounds);
     }
 
     
     auto& score = game.getScoreManager();
-    if (ball->outOfBoundsLeft()) {
+    if (m_ball->outOfBoundsLeft()) {
         score.incrementBot();
-        goalSound->play();
+        m_goalSound->play();
         resetBall();
 
-    } else if (ball->outOfBoundsRight()) {
+    } else if (m_ball->outOfBoundsRight()) {
         score.incrementPlayer();
-        goalSound->play();
+        m_goalSound->play();
         resetBall();
     }
 
@@ -101,15 +101,15 @@ void PlayingState::render(sf::RenderWindow& window) {
     line.setPosition({(Constants::SCREEN_WIDTH / 2) - Constants::LINE_OFFSET, 0});
     window.draw(line);
 
-    player->render(window);
-    bot->render(window);
-    ball->render(window);
+    m_player->render(window);
+    m_bot->render(window);
+    m_ball->render(window);
 
-    uiManager.render(window, game.getScoreManager().getPlayerScore(), game.getScoreManager().getBotScore());
+    m_uiManager.render(window, game.getScoreManager().getPlayerScore(), game.getScoreManager().getBotScore());
 }
 
 void PlayingState::resetBall() {
-    ball->resetPosition(); 
+    m_ball->resetPosition(); 
 
     float xDir = Random::sign();
 
@@ -120,6 +120,6 @@ void PlayingState::resetBall() {
         newVel.y /= length;
     }
 
-    ball->setVelocity(newVel);
-    ball->setSpeed(ball->getInitialSpeed());
+    m_ball->setVelocity(newVel);
+    m_ball->setSpeed(m_ball->getInitialSpeed());
 }

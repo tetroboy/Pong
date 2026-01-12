@@ -2,66 +2,66 @@
 
 Ball::Ball() {
 
-    shape = std::make_unique<sf::CircleShape>(radius);
-    shape->setFillColor(sf::Color::White);
-    shape->setOrigin({radius, radius});
-    velocity.x = 1;
-    velocity.y = 1;
+    m_shape = std::make_unique<sf::CircleShape>(m_radius);
+    m_shape->setFillColor(sf::Color::White);
+    m_shape->setOrigin({m_radius, m_radius});
+    m_velocity.x = 1;
+    m_velocity.y = 1;
     resetPosition();
 }
 
 void Ball::update(float dt) {
 
-    shape->move({
-        velocity.x * currentSpeed * Constants::BALL_HORIZONTAL_SPEED_FACTOR * dt,
-        velocity.y * currentSpeed * Constants::BALL_VERTICAL_SPEED_FACTOR * dt
+    m_shape->move({
+        m_velocity.x * m_currentSpeed * Constants::BALL_HORIZONTAL_SPEED_FACTOR * dt,
+        m_velocity.y * m_currentSpeed * Constants::BALL_VERTICAL_SPEED_FACTOR * dt
     });
 
-    sf::Vector2f pos = shape->getPosition();
+    sf::Vector2f pos = m_shape->getPosition();
 
-    if (pos.y - radius < 0) {
-        shape->setPosition({pos.x, radius});
-        velocity.y = -velocity.y;
+    if (pos.y - m_radius < 0) {
+        m_shape->setPosition({pos.x, m_radius});
+        m_velocity.y = -m_velocity.y;
     }
 
-    if (pos.y + radius > Constants::SCREEN_HEIGHT) {
-        shape->setPosition({pos.x, Constants::SCREEN_HEIGHT - radius});
-        velocity.y = -velocity.y;
+    if (pos.y + m_radius > Constants::SCREEN_HEIGHT) {
+        m_shape->setPosition({pos.x, Constants::SCREEN_HEIGHT - m_radius});
+        m_velocity.y = -m_velocity.y;
     }
 }
 
 void Ball::bounceHorizontal(const sf::FloatRect& paddleBounds) {
-    velocity.x = -velocity.x;
+    m_velocity.x = -m_velocity.x;
 
-    sf::Vector2f pos = shape->getPosition();
+    sf::Vector2f pos = m_shape->getPosition();
     float hitOffset = (pos.y - paddleBounds.position.y - paddleBounds.size.y / 2.0f)
                     / (paddleBounds.size.y / 2.0f);
 
     float maxY = 0.6f;
-    velocity.y = hitOffset * maxY;
+    m_velocity.y = hitOffset * maxY;
 
-    float length = std::hypot(velocity.x, velocity.y);
+    float length = std::hypot(m_velocity.x, m_velocity.y);
     if (length > 0.1f) {
-        velocity.x /= length;
-        velocity.y /= length;
+        m_velocity.x /= length;
+        m_velocity.y /= length;
     }
 
-    currentSpeed += speedIncrease;
-    currentSpeed = std::min(currentSpeed, maxSpeed);
+    m_currentSpeed += m_speedIncrease;
+    m_currentSpeed = std::min(m_currentSpeed, m_maxSpeed);
 }
 
 bool Ball::outOfBoundsLeft() const {
-    return shape->getPosition().x - radius < 0;
+    return m_shape->getPosition().x - m_radius < 0;
 }
 
 bool Ball::outOfBoundsRight() const {
-    return shape->getPosition().x + radius > Constants::SCREEN_WIDTH;
+    return m_shape->getPosition().x + m_radius > Constants::SCREEN_WIDTH;
 }
 
 void Ball::resetPosition() {
-    shape->setPosition({Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 2.0f}); 
+    m_shape->setPosition({Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 2.0f}); 
 }
 
 float Ball::getRadius() const {
-    return radius;
+    return m_radius;
 }

@@ -1,21 +1,21 @@
 #include "ScoreManager.h"
 
 void ScoreManager::incrementPlayer() {
-    playerScore++;
+    m_playerScore++;
     notify(GameEvent::PlayerGoal);
 }
 
 void ScoreManager::incrementBot() {
-    botScore++;
+    m_botScore++;
     notify(GameEvent::BotGoal);
 }
 
 void ScoreManager::registerObserver(Observer* obs) {
-    observers.push_back(obs);
+    m_observers.push_back(obs);
 }
 
 void ScoreManager::notify(GameEvent event) {
-    for (auto* obs : observers) {
+    for (auto* obs : m_observers) {
         obs->onNotify(event);
     }
 }

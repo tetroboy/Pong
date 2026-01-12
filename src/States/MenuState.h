@@ -11,12 +11,12 @@ private:
         Exit
     };
 
-    std::unique_ptr<sf::Text> title;
-    std::unique_ptr<sf::Text> easyText;
-    std::unique_ptr<sf::Text> normalText;
-    std::unique_ptr<sf::Text> hardText;
-    std::unique_ptr<sf::Text> exitText;
-    
+    std::unique_ptr<sf::Text> m_title;
+    std::unique_ptr<sf::Text> m_easyText;
+    std::unique_ptr<sf::Text> m_normalText;
+    std::unique_ptr<sf::Text> m_hardText;
+    std::unique_ptr<sf::Text> m_exitText;
+
     MenuOption selectedOption = MenuOption::Normal;  
     void updateHighlight();
 public:

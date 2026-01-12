@@ -3,9 +3,9 @@
 
 void BotPaddle::setDifficulty(Difficulty diff) {
     switch (diff) {
-        case Difficulty::Easy:   botSpeedFactor = 0.6f; break;
-        case Difficulty::Normal: botSpeedFactor = 0.8f; break;
-        case Difficulty::Hard:   botSpeedFactor = 1.0f; break;
+        case Difficulty::Easy:   m_botSpeedFactor = 0.6f; break;
+        case Difficulty::Normal: m_botSpeedFactor = 0.8f; break;
+        case Difficulty::Hard:   m_botSpeedFactor = 1.0f; break;
     }
 }
 
@@ -14,16 +14,16 @@ void BotPaddle::update(float dt, const Ball& ball) {
 
     if (ball.getVelocity().x > 0) {
         float ballY = ball.getPosition().y;
-        float paddleY = shape->getPosition().y;
+        float paddleY = m_shape->getPosition().y;
 
         float diff = ballY - paddleY;
-        float botSpeed = speed * botSpeedFactor;
+        float botSpeed = m_speed * m_botSpeedFactor;
 
         if (std::abs(diff) > 30.0f) {
             if (diff > 0) {
-                shape->move({0.0f, botSpeed * dt});
+                m_shape->move({0.0f, botSpeed * dt});
             } else {
-                shape->move({0.0f, -botSpeed * dt});
+                m_shape->move({0.0f, -botSpeed * dt});
             }
         }
     }

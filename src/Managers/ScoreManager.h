@@ -12,15 +12,15 @@ public:
 
 class ScoreManager {
 private:
-    int playerScore = 0;
-    int botScore = 0;
-    std::vector<Observer*> observers;
+    int m_playerScore = 0;
+    int m_botScore = 0;
+    std::vector<Observer*> m_observers;
 
 public:
     void incrementPlayer();
     void incrementBot();
     void registerObserver(Observer* obs);
     void notify(GameEvent event);
-    int getPlayerScore() const { return playerScore; }
-    int getBotScore() const { return botScore; }
+    int getPlayerScore() const { return m_playerScore; }
+    int getBotScore() const { return m_botScore; }
 };

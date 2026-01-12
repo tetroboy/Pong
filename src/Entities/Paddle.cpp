@@ -2,23 +2,23 @@
 #include <algorithm>
 
 Paddle::Paddle() {
-    shape = std::make_unique<sf::RectangleShape>(sf::Vector2f(width, height));
-    shape->setFillColor({200, 200, 255});
-    shape->setOrigin({width / 2.0f, height / 2.0f});
+    m_shape = std::make_unique<sf::RectangleShape>(sf::Vector2f(m_width, m_height));
+    m_shape->setFillColor({200, 200, 255});
+    m_shape->setOrigin({m_width / 2.0f, m_height / 2.0f});
     
-    shape->setPosition({Constants::PADDLE_OFFSET + width / 2.0f, Constants::SCREEN_HEIGHT / 2.0f});
+    m_shape->setPosition({Constants::PADDLE_OFFSET + m_width / 2.0f, Constants::SCREEN_HEIGHT / 2.0f});
 }
 
 void Paddle::update(float dt) {
-    sf::Vector2f pos = shape->getPosition();
-    pos.y = std::clamp(pos.y, height / 2.0f, Constants::SCREEN_HEIGHT - height / 2.0f);
-    shape->setPosition(pos);
+    sf::Vector2f pos = m_shape->getPosition();
+    pos.y = std::clamp(pos.y, m_height / 2.0f, Constants::SCREEN_HEIGHT - m_height / 2.0f);
+    m_shape->setPosition(pos);
 }
 
 void Paddle::moveUp(float dt) {
-    shape->move({0.0f, -speed * dt});
+    m_shape->move({0.0f, -m_speed * dt});
 }
 
 void Paddle::moveDown(float dt) {
-    shape->move({0.0f, speed * dt});
+    m_shape->move({0.0f, m_speed * dt});
 }

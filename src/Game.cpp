@@ -5,39 +5,39 @@
 #include <iostream>
 
 Game::Game() 
-    : window(sf::VideoMode(sf::Vector2u(Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT)), "Pong")  
+    : m_window(sf::VideoMode(sf::Vector2u(Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT)), "Pong")  
 {
-    window.setFramerateLimit(60);
+    m_window.setFramerateLimit(60);
     changeState(std::make_unique<MenuState>(*this));
 }
 
 void Game::run() {
     sf::Clock clock;
-    while (window.isOpen()) {
+    while (m_window.isOpen()) {
         float dt = clock.restart().asSeconds();
         
-        while (auto eventOpt = window.pollEvent()) {
+        while (auto eventOpt = m_window.pollEvent()) {
             const sf::Event& event = *eventOpt;  
 
             if (event.is<sf::Event::Closed>()) {
-                window.close();
+                m_window.close();
             }
 
-            currentState->handleEvents(event);  
+            m_currentState->handleEvents(event);  
         }
         
-        currentState->update(dt);
+        m_currentState->update(dt);
 
-        window.clear(sf::Color::Black);
+        m_window.clear(sf::Color::Black);
         
-        currentState->render(window);
+        m_currentState->render(m_window);
         
-        window.display();
+        m_window.display();
         
         
     }
 }
 
 void Game::changeState(std::unique_ptr<GameState> newState) {
-    currentState = std::move(newState);
+    m_currentState = std::move(newState);
 }

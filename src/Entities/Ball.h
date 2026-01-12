@@ -4,11 +4,11 @@
 #include <iostream>
 class Ball : public Entity {
 private:
-    float initialSpeed = 350.0f;     
-    float currentSpeed = initialSpeed;
-    float speedIncrease = 50.0f;      
-    float maxSpeed = 800.0f;        
-    float radius = Constants::BALL_RADIUS;          
+    float m_initialSpeed = 350.0f;     
+    float m_currentSpeed = m_initialSpeed;
+    float m_speedIncrease = 50.0f;      
+    float m_maxSpeed = 800.0f;        
+    float m_radius = Constants::BALL_RADIUS;          
 public:
     Ball();
     void update(float dt) override;
@@ -17,6 +17,6 @@ public:
     bool outOfBoundsRight() const;
     void resetPosition();
     float getRadius() const; 
-    float getInitialSpeed() const{ return initialSpeed; }
-    void setSpeed(float speed){ currentSpeed = speed; }
+    float getInitialSpeed() const{ return m_initialSpeed; }
+    void setSpeed(float speed){ m_currentSpeed = speed; }
 };

@@ -11,9 +11,9 @@ enum class GameResult {
 
 class GameOverState : public GameState {
 private:
-    std::unique_ptr<sf::Text> titleText;
-    std::unique_ptr<sf::Text> messageText;
-    std::unique_ptr<sf::Text> menuText;
+    std::unique_ptr<sf::Text> m_titleText;
+    std::unique_ptr<sf::Text> m_messageText;
+    std::unique_ptr<sf::Text> m_menuText;
     GameResult result = GameResult::Victory;
 
 public:

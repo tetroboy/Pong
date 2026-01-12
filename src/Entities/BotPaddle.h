@@ -4,7 +4,7 @@
 
 class BotPaddle : public Paddle {
 private:
-    float botSpeedFactor = 0.8f;
+    float m_botSpeedFactor = 0.8f;
 public:
     void setDifficulty(Difficulty diff);
     void update(float dt, const Ball& ball); 
