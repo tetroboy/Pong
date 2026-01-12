@@ -18,7 +18,7 @@ private:
     std::unique_ptr<sf::Text> exitText;
     
     MenuOption selectedOption = MenuOption::Normal;  
-    void MenuState::updateHighlight();
+    void updateHighlight();
 public:
     explicit MenuState(Game& g);
     void handleEvents(const sf::Event& event) override;
