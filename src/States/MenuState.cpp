@@ -13,12 +13,12 @@ MenuState::MenuState(Game& g) : GameState(g) {
     hardText = std::make_unique<sf::Text>(Constants::globalFont,"HARD", 40);
 
     title->setFillColor(sf::Color::White);
-    title->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - title->getCharacterSize(),title->getCharacterSize() ));
+    title->setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(title->getCharacterSize()),static_cast<float>(title->getCharacterSize()) });
 
-    exitText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - exitText->getCharacterSize(), Constants::SCREEN_HEIGHT - (exitText->getCharacterSize() * 2)));
-    easyText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - easyText->getCharacterSize(), Constants::SCREEN_HEIGHT / 3));
-    normalText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - normalText->getCharacterSize(), Constants::SCREEN_HEIGHT / 2));
-    hardText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2 - hardText->getCharacterSize(), Constants::SCREEN_HEIGHT / 1.5));
+    exitText->setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(exitText->getCharacterSize()), Constants::SCREEN_HEIGHT - static_cast<float>(exitText->getCharacterSize() * 2)});
+    easyText->setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(easyText->getCharacterSize()), Constants::SCREEN_HEIGHT / 3.0f});
+    normalText->setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(normalText->getCharacterSize()), Constants::SCREEN_HEIGHT / 2.0f});
+    hardText->setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(hardText->getCharacterSize()), Constants::SCREEN_HEIGHT / 1.5f});
 
     updateHighlight();
 }

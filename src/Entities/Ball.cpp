@@ -4,7 +4,7 @@ Ball::Ball() {
 
     shape = std::make_unique<sf::CircleShape>(radius);
     shape->setFillColor(sf::Color::White);
-    shape->setOrigin(sf::Vector2f(radius, radius));
+    shape->setOrigin({radius, radius});
     velocity.x = 1;
     velocity.y = 1;
     resetPosition();
@@ -12,20 +12,20 @@ Ball::Ball() {
 
 void Ball::update(float dt) {
 
-    shape->move(sf::Vector2f(
+    shape->move({
         velocity.x * currentSpeed * Constants::BALL_HORIZONTAL_SPEED_FACTOR * dt,
         velocity.y * currentSpeed * Constants::BALL_VERTICAL_SPEED_FACTOR * dt
-    ));
+    });
 
     sf::Vector2f pos = shape->getPosition();
 
     if (pos.y - radius < 0) {
-        shape->setPosition(sf::Vector2f(pos.x, radius));
+        shape->setPosition({pos.x, radius});
         velocity.y = -velocity.y;
     }
 
     if (pos.y + radius > Constants::SCREEN_HEIGHT) {
-        shape->setPosition(sf::Vector2f(pos.x, Constants::SCREEN_HEIGHT - radius));
+        shape->setPosition({pos.x, Constants::SCREEN_HEIGHT - radius});
         velocity.y = -velocity.y;
     }
 }
@@ -59,7 +59,7 @@ bool Ball::outOfBoundsRight() const {
 }
 
 void Ball::resetPosition() {
-    shape->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 2.0f)); 
+    shape->setPosition({Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 2.0f}); 
 }
 
 float Ball::getRadius() const {

@@ -7,13 +7,13 @@ GameOverState::GameOverState(Game& g, GameResult res) : GameState(g), result(res
                                            result == GameResult::Victory ? "WIN!" : "LOSE!", 
                                            100);
     titleText->setFillColor(result == GameResult::Victory ? sf::Color::Green : sf::Color::Red);
-    titleText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2, Constants::SCREEN_HEIGHT / 4));
+    titleText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 4.0f));
 
     messageText = std::make_unique<sf::Text>(Constants::globalFont, 
                                              result == GameResult::Victory ? "You win!" : "You lose!", 
                                              40);
     messageText->setFillColor(sf::Color::White);
-    messageText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2, Constants::SCREEN_HEIGHT / 2));
+    messageText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 2.0f));
 
 }
 

@@ -59,7 +59,7 @@ void PlayingState::update(float dt) {
         float ballRight = ballBounds.position.x + ballBounds.size.x;
         float paddleRight = playerBounds.position.x + playerBounds.size.x;
         if (ballRight > playerBounds.position.x) {
-            ball->setPosition(sf::Vector2f(paddleRight + ball->getRadius(), ball->getPosition().y));
+            ball->setPosition({paddleRight + ball->getRadius(), ball->getPosition().y});
             
         }
         hitSound->play();
@@ -69,7 +69,7 @@ void PlayingState::update(float dt) {
         float ballLeft = ballBounds.position.x;
         float botLeft = botBounds.position.x;
         if (ballLeft < botLeft + botBounds.size.x) {
-            ball->setPosition(sf::Vector2f(botLeft - ball->getRadius(), ball->getPosition().y));
+            ball->setPosition({botLeft - ball->getRadius(), ball->getPosition().y});
         }
         hitSound->play();
         ball->bounceHorizontal(botBounds);
@@ -97,8 +97,8 @@ void PlayingState::update(float dt) {
 
 void PlayingState::render(sf::RenderWindow& window) {
     sf::RectangleShape line(sf::Vector2f(Constants::LINE_OFFSET * 2, Constants::SCREEN_HEIGHT));
-    line.setFillColor(sf::Color(100, 100, 100));
-    line.setPosition(sf::Vector2f((Constants::SCREEN_WIDTH / 2) - Constants::LINE_OFFSET, 0));
+    line.setFillColor({100, 100, 100});
+    line.setPosition({(Constants::SCREEN_WIDTH / 2) - Constants::LINE_OFFSET, 0});
     window.draw(line);
 
     player->render(window);

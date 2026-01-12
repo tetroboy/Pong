@@ -21,9 +21,9 @@ void BotPaddle::update(float dt, const Ball& ball) {
 
         if (std::abs(diff) > 30.0f) {
             if (diff > 0) {
-                shape->move(sf::Vector2f(0.0f, botSpeed * dt));
+                shape->move({0.0f, botSpeed * dt});
             } else {
-                shape->move(sf::Vector2f(0.0f, -botSpeed * dt));
+                shape->move({0.0f, -botSpeed * dt});
             }
         }
     }

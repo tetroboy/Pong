@@ -7,17 +7,17 @@ UIManager::UIManager() {
     botText = std::make_unique<sf::Text>(Constants::globalFont, "", 40);
 
     playerText->setFillColor(sf::Color::Cyan);
-    playerText->setPosition(sf::Vector2f(Constants::SCORE_OFFSET, Constants::SCREEN_HEIGHT / 4));
+    playerText->setPosition({Constants::SCORE_OFFSET, Constants::SCREEN_HEIGHT / 4.0f});
 
     botText->setFillColor(sf::Color::Magenta);
-    botText->setPosition(sf::Vector2f(Constants::SCREEN_WIDTH - Constants::SCORE_OFFSET, Constants::SCREEN_HEIGHT / 4));
+    botText->setPosition({Constants::SCREEN_WIDTH - Constants::SCORE_OFFSET, Constants::SCREEN_HEIGHT / 4.0f});
     
 }
 
 void UIManager::onNotify(GameEvent event) {
     if (event == GameEvent::PlayerGoal || event == GameEvent::BotGoal) {
-        playerText->setScale(sf::Vector2f(1.5f, 1.5f));
-        botText->setScale(sf::Vector2f(1.5f, 1.5f));
+        playerText->setScale({1.5f, 1.5f});
+        botText->setScale({1.5f, 1.5f});
     }
 }
 

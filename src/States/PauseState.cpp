@@ -10,13 +10,13 @@ PauseState::PauseState(Game& g) : GameState(g) {
     exitText = std::make_unique<sf::Text>(Constants::globalFont,"EXIT",50);
     
     pauseText->setFillColor(sf::Color::Yellow);
-    pauseText->setPosition(sf::Vector2f(350.f, 100.f));
+    pauseText->setPosition({350.f, 100.f});
 
     resumeText->setFillColor(sf::Color::Cyan);
-    resumeText->setPosition(sf::Vector2f(350.f, 250.f));
+    resumeText->setPosition({350.f, 250.f});
 
     exitText->setFillColor(sf::Color::Red);
-    exitText->setPosition(sf::Vector2f(350.f, 350.f));
+    exitText->setPosition({350.f, 350.f});
 }
 
 void PauseState::handleEvents(const sf::Event& event) {
@@ -42,7 +42,7 @@ void PauseState::update(float dt) {
 }
 
 void PauseState::render(sf::RenderWindow& window) {
-    window.clear(sf::Color(0, 0, 0, 200));  
+    window.clear({0, 0, 0, 200});  
 
     if(pauseText) window.draw(*pauseText);
     if(resumeText) window.draw(*resumeText);
