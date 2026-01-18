@@ -1,5 +1,4 @@
 #include "GameOverState.h"
-#include <iostream>
 
 GameOverState::GameOverState(Game& g, GameResult res) : GameState(g), result(res) {
     

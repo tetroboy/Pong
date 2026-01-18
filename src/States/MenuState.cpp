@@ -1,7 +1,4 @@
 #include "MenuState.h"
-#include "PlayingState.h"
-#include "../Utils/Constants.h"
-#include <iostream>
 
 MenuState::MenuState(Game& g) : GameState(g) {
 

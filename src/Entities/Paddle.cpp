@@ -1,5 +1,4 @@
 #include "Paddle.h"
-#include <algorithm>
 
 Paddle::Paddle() {
     m_shape = std::make_unique<sf::RectangleShape>(sf::Vector2f(Constants::PADDLE_WIDTH, Constants::PADDLE_HEIGHT));

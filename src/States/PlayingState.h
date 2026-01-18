@@ -1,20 +1,13 @@
 #pragma once
 #include "GameState.h"
-#include "../Game.h"
-#include "../Entities/Entity.h"
-#include <vector>
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "../Managers/ScoreManager.h"
 #include "../Managers/UIManager.h"
-#include "../Managers/EntityFactory.h"
 #include "../Entities/Ball.h"
-#include "../Entities/Paddle.h"
 #include "../Entities/PlayerPaddle.h"
 #include "../Entities/BotPaddle.h" 
 #include "PauseState.h"
-#include "MenuState.h"
 #include "GameOverState.h"
 
 class PlayingState : public GameState {

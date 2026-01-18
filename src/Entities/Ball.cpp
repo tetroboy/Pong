@@ -23,12 +23,12 @@ void Ball::update(float dt) {
     sf::Vector2f pos = getPosition();
 
     if (pos.y - Constants::BALL_RADIUS < 0) {
-        m_shape->setPosition({pos.x, Constants::BALL_RADIUS});
+        setPosition({pos.x, Constants::BALL_RADIUS});
         m_velocity.y = -m_velocity.y;
     }
 
     if (pos.y + Constants::BALL_RADIUS > Constants::SCREEN_HEIGHT) {
-        m_shape->setPosition({pos.x, Constants::SCREEN_HEIGHT - Constants::BALL_RADIUS});
+        setPosition({pos.x, Constants::SCREEN_HEIGHT - Constants::BALL_RADIUS});
         m_velocity.y = -m_velocity.y;
     }
 }
@@ -36,7 +36,7 @@ void Ball::update(float dt) {
 void Ball::bounceHorizontal(const sf::FloatRect& paddleBounds) {
     m_velocity.x = -m_velocity.x;
 
-    sf::Vector2f pos = m_shape->getPosition();
+    sf::Vector2f pos = getPosition();
     float hitOffset = (pos.y - paddleBounds.position.y - paddleBounds.size.y / 2.0f)
                     / (paddleBounds.size.y / 2.0f);
 

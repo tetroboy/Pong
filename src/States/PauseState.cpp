@@ -1,7 +1,4 @@
 #include "PauseState.h"
-#include "PlayingState.h"
-#include "MenuState.h"
-
 
 PauseState::PauseState(Game& g) : GameState(g) {
 

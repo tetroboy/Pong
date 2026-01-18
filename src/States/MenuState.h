@@ -1,6 +1,9 @@
 #pragma once
 #include "GameState.h"
 #include <SFML/Graphics.hpp>
+#include "PlayingState.h"
+#include "../Utils/Constants.h"
+#include <iostream>
 
 class MenuState : public GameState {
 private:

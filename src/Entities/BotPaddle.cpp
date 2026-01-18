@@ -1,5 +1,4 @@
 #include "BotPaddle.h"
-#include <cmath>
 
 void BotPaddle::setDifficulty(Difficulty diff) {
     switch (diff) {

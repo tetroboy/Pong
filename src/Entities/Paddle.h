@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "../Utils/Constants.h"
+#include <algorithm>
 
 class Paddle : public Entity {
 protected:

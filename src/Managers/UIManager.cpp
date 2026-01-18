@@ -1,5 +1,4 @@
 #include "UIManager.h"
-#include <iostream>
 
 UIManager::UIManager() {
     

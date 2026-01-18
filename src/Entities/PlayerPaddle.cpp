@@ -1,5 +1,4 @@
 #include "PlayerPaddle.h"
-#include <SFML/Window/Keyboard.hpp>
 
 void PlayerPaddle::update(float dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
