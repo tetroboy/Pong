@@ -2,15 +2,15 @@
 
 Ball::Ball() {
 
-    m_shape = std::make_unique<sf::CircleShape>(m_radius);
+    m_shape = std::make_unique<sf::CircleShape>(Constants::BALL_RADIUS);
     m_shape->setFillColor(sf::Color::White);
-    m_shape->setOrigin({m_radius, m_radius});
+    m_shape->setOrigin({Constants::BALL_RADIUS, Constants::BALL_RADIUS});
     m_velocity.x = 1;
     m_velocity.y = 1;
-    setPosition(sf::Vector2f(
+    setPosition({
         Constants::SCREEN_WIDTH / 2.0f,
         Constants::SCREEN_HEIGHT / 2.0f
-    ));
+    });
 }
 
 void Ball::update(float dt) {
@@ -20,15 +20,15 @@ void Ball::update(float dt) {
         m_velocity.y * m_currentSpeed * Constants::BALL_VERTICAL_SPEED_FACTOR * dt
     });
 
-    sf::Vector2f pos = m_shape->getPosition();
+    sf::Vector2f pos = getPosition();
 
-    if (pos.y - m_radius < 0) {
-        m_shape->setPosition({pos.x, m_radius});
+    if (pos.y - Constants::BALL_RADIUS < 0) {
+        m_shape->setPosition({pos.x, Constants::BALL_RADIUS});
         m_velocity.y = -m_velocity.y;
     }
 
-    if (pos.y + m_radius > Constants::SCREEN_HEIGHT) {
-        m_shape->setPosition({pos.x, Constants::SCREEN_HEIGHT - m_radius});
+    if (pos.y + Constants::BALL_RADIUS > Constants::SCREEN_HEIGHT) {
+        m_shape->setPosition({pos.x, Constants::SCREEN_HEIGHT - Constants::BALL_RADIUS});
         m_velocity.y = -m_velocity.y;
     }
 }
@@ -49,18 +49,14 @@ void Ball::bounceHorizontal(const sf::FloatRect& paddleBounds) {
         m_velocity.y /= length;
     }
 
-    m_currentSpeed += m_speedIncrease;
-    m_currentSpeed = std::min(m_currentSpeed, m_maxSpeed);
+    m_currentSpeed += Constants::BALL_SPEED_INCREASE;
+    m_currentSpeed = std::min(m_currentSpeed, Constants::BALL_MAX_SPEED);
 }
 
 bool Ball::outOfBoundsLeft() const {
-    return m_shape->getPosition().x - m_radius < 0;
+    return getPosition().x - Constants::BALL_RADIUS < 0;
 }
 
 bool Ball::outOfBoundsRight() const {
-    return m_shape->getPosition().x + m_radius > Constants::SCREEN_WIDTH;
-}
-
-float Ball::getRadius() const {
-    return m_radius;
+    return getPosition().x + Constants::BALL_RADIUS > Constants::SCREEN_WIDTH;
 }

@@ -63,7 +63,7 @@ void PlayingState::update(float dt) {
         float ballRight = ballBounds.position.x + ballBounds.size.x;
         float paddleRight = playerBounds.position.x + playerBounds.size.x;
         if (ballRight > playerBounds.position.x) {
-            m_ball->setPosition({paddleRight + m_ball->getRadius(), m_ball->getPosition().y});
+            m_ball->setPosition({paddleRight + Constants::BALL_RADIUS, m_ball->getPosition().y});
             
         }
         m_hitSound->play();
@@ -73,7 +73,7 @@ void PlayingState::update(float dt) {
         float ballLeft = ballBounds.position.x;
         float botLeft = botBounds.position.x;
         if (ballLeft < botLeft + botBounds.size.x) {
-            m_ball->setPosition({botLeft - m_ball->getRadius(), m_ball->getPosition().y});
+            m_ball->setPosition({botLeft - Constants::BALL_RADIUS, m_ball->getPosition().y});
         }
         m_hitSound->play();
         m_ball->bounceHorizontal(botBounds);
@@ -113,10 +113,10 @@ void PlayingState::render(sf::RenderWindow& window) {
 }
 
 void PlayingState::resetBall() {
-    m_ball->setPosition(sf::Vector2f(
+    m_ball->setPosition({
         Constants::SCREEN_WIDTH / 2.0f,
         Constants::SCREEN_HEIGHT / 2.0f
-    )); 
+    }); 
 
     float xDir = Random::sign();
 
@@ -128,5 +128,5 @@ void PlayingState::resetBall() {
     }
 
     m_ball->setVelocity(newVel);
-    m_ball->setSpeed(m_ball->getInitialSpeed());
+    m_ball->setSpeed(Constants::BALL_INITIAL_SPEED);
 }

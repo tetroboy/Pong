@@ -27,6 +27,6 @@ public:
 
     sf::FloatRect getBounds() const {return m_shape->getGlobalBounds(); }
 
-    sf::Vector2f getVelocity() const { return m_velocity; }
+    const sf::Vector2f& getVelocity() const { return m_velocity; }
     void setVelocity(const sf::Vector2f& vel) { m_velocity = vel; }
 };

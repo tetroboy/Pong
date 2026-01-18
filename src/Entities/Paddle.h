@@ -5,8 +5,6 @@
 class Paddle : public Entity {
 protected:
     float m_speed = 350.0f;
-    float m_width = Constants::PADDLE_WIDTH;
-    float m_height = Constants::PADDLE_HEIGHT;
 
 public:
     Paddle();
