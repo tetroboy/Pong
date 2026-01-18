@@ -33,6 +33,7 @@ private:
 
 public:
     explicit PlayingState(Game& game);
+    ~PlayingState();
     void handleEvents(const sf::Event& event) override;
     void update(float dt) override;
     void render(sf::RenderWindow& window) override;

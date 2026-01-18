@@ -7,7 +7,10 @@ Ball::Ball() {
     m_shape->setOrigin({m_radius, m_radius});
     m_velocity.x = 1;
     m_velocity.y = 1;
-    resetPosition();
+    setPosition(sf::Vector2f(
+        Constants::SCREEN_WIDTH / 2.0f,
+        Constants::SCREEN_HEIGHT / 2.0f
+    ));
 }
 
 void Ball::update(float dt) {
@@ -56,10 +59,6 @@ bool Ball::outOfBoundsLeft() const {
 
 bool Ball::outOfBoundsRight() const {
     return m_shape->getPosition().x + m_radius > Constants::SCREEN_WIDTH;
-}
-
-void Ball::resetPosition() {
-    m_shape->setPosition({Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 2.0f}); 
 }
 
 float Ball::getRadius() const {

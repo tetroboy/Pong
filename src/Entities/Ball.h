@@ -15,7 +15,6 @@ public:
     void bounceHorizontal(const sf::FloatRect& paddleBounds);
     bool outOfBoundsLeft() const;
     bool outOfBoundsRight() const;
-    void resetPosition();
     float getRadius() const; 
     float getInitialSpeed() const{ return m_initialSpeed; }
     void setSpeed(float speed){ m_currentSpeed = speed; }

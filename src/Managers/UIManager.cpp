@@ -14,7 +14,7 @@ UIManager::UIManager() {
     
 }
 
-void UIManager::onNotify(GameEvent event) {
+void UIManager::onNotify(const ScoreManager& score, GameEvent event) {
     if (event == GameEvent::PlayerGoal || event == GameEvent::BotGoal) {
         m_playerText->setScale({1.5f, 1.5f});
         m_botText->setScale({1.5f, 1.5f});

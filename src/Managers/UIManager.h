@@ -12,6 +12,6 @@ private:
 
 public:
     UIManager();
-    void onNotify(GameEvent event) override;
+    void onNotify(const ScoreManager& score, GameEvent event) override;
     void render(sf::RenderWindow& window, int playerScore, int botScore);
 };

@@ -25,8 +25,12 @@ PlayingState::PlayingState(Game& g) : GameState(g) {
     m_hitSound->setVolume(Constants::HIT_SOUND_VOLUME);
     m_goalSound->setVolume(Constants::GOAL_SOUND_VOLUME);
 
-    score.registerObserver(&m_uiManager);
+    score.registerObserver(std::shared_ptr<Observer>(&m_uiManager, [](Observer*){}));
     resetBall();
+}
+
+PlayingState::~PlayingState() {
+    game.getScoreManager().unregisterObserver(std::shared_ptr<Observer>(&m_uiManager, [](Observer*){}));
 }
 
 void PlayingState::handleEvents(const sf::Event& event) {
@@ -109,7 +113,10 @@ void PlayingState::render(sf::RenderWindow& window) {
 }
 
 void PlayingState::resetBall() {
-    m_ball->resetPosition(); 
+    m_ball->setPosition(sf::Vector2f(
+        Constants::SCREEN_WIDTH / 2.0f,
+        Constants::SCREEN_HEIGHT / 2.0f
+    )); 
 
     float xDir = Random::sign();
 
