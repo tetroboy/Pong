@@ -1,30 +1,28 @@
 #include "MenuState.h"
 
-MenuState::MenuState(Game& g) : GameState(g) {
+MenuState::MenuState(Game& g) : GameState(g),
+    m_title(Constants::globalFont, "PONG", 80),
+    m_easyText(Constants::globalFont, "EASY", 40),
+    m_normalText(Constants::globalFont, "NORMAL", 40),
+    m_hardText(Constants::globalFont, "HARD", 40),
+    m_exitText(Constants::globalFont, "EXIT", 50)
+{
+    m_title.setFillColor(sf::Color::White);
+    m_title.setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(m_title.getCharacterSize()), static_cast<float>(m_title.getCharacterSize())});
 
-    m_title = std::make_unique<sf::Text>(Constants::globalFont,"PONG",80);
-    m_exitText = std::make_unique<sf::Text>(Constants::globalFont,"EXIT",50);
-    
-    m_easyText = std::make_unique<sf::Text>(Constants::globalFont,"EASY", 40);
-    m_normalText = std::make_unique<sf::Text>(Constants::globalFont,"NORMAL", 40);
-    m_hardText = std::make_unique<sf::Text>(Constants::globalFont,"HARD", 40);
-
-    m_title->setFillColor(sf::Color::White);
-    m_title->setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(m_title->getCharacterSize()),static_cast<float>(m_title->getCharacterSize()) });
-
-    m_exitText->setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(m_exitText->getCharacterSize()), Constants::SCREEN_HEIGHT - static_cast<float>(m_exitText->getCharacterSize() * 2)});
-    m_easyText->setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(m_easyText->getCharacterSize()), Constants::SCREEN_HEIGHT / 3.0f});
-    m_normalText->setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(m_normalText->getCharacterSize()), Constants::SCREEN_HEIGHT / 2.0f});
-    m_hardText->setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(m_hardText->getCharacterSize()), Constants::SCREEN_HEIGHT / 1.5f});
+    m_easyText.setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(m_easyText.getCharacterSize()), Constants::SCREEN_HEIGHT / 3.0f});
+    m_normalText.setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(m_normalText.getCharacterSize()), Constants::SCREEN_HEIGHT / 2.0f});
+    m_hardText.setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(m_hardText.getCharacterSize()), Constants::SCREEN_HEIGHT / 1.5f});
+    m_exitText.setPosition({Constants::SCREEN_WIDTH / 2.0f - static_cast<float>(m_exitText.getCharacterSize()), Constants::SCREEN_HEIGHT - static_cast<float>(m_exitText.getCharacterSize() * 2)});
 
     updateHighlight();
 }
 
 void MenuState::updateHighlight() {
-    m_easyText->setFillColor(selectedOption == MenuOption::Easy ? sf::Color::Yellow : sf::Color::White);
-    m_normalText->setFillColor(selectedOption == MenuOption::Normal ? sf::Color::Yellow : sf::Color::White);
-    m_hardText->setFillColor(selectedOption == MenuOption::Hard ? sf::Color::Yellow : sf::Color::White);
-    m_exitText->setFillColor(selectedOption == MenuOption::Exit ? sf::Color::Yellow : sf::Color::Red);
+    m_easyText.setFillColor(selectedOption == MenuOption::Easy ? sf::Color::Yellow : sf::Color::White);
+    m_normalText.setFillColor(selectedOption == MenuOption::Normal ? sf::Color::Yellow : sf::Color::White);
+    m_hardText.setFillColor(selectedOption == MenuOption::Hard ? sf::Color::Yellow : sf::Color::White);
+    m_exitText.setFillColor(selectedOption == MenuOption::Exit ? sf::Color::Yellow : sf::Color::Red);
 }
 
 
@@ -68,9 +66,9 @@ void MenuState::update(float dt) {
 
 void MenuState::render(sf::RenderWindow& window) {
     window.clear(sf::Color::Black);
-    if (m_title) window.draw(*m_title);
-    if (m_easyText) window.draw(*m_easyText);
-    if (m_normalText) window.draw(*m_normalText);
-    if (m_hardText) window.draw(*m_hardText);
-    if (m_exitText) window.draw(*m_exitText);
+    window.draw(m_title);
+    window.draw(m_easyText);
+    window.draw(m_normalText);
+    window.draw(m_hardText);
+    window.draw(m_exitText);
 }

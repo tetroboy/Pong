@@ -11,9 +11,9 @@ private:
         ExitToMenu
     };
 
-    std::unique_ptr<sf::Text> m_pauseText;
-    std::unique_ptr<sf::Text> m_resumeText;
-    std::unique_ptr<sf::Text> m_exitText;
+    sf::Text m_pauseText;
+    sf::Text m_resumeText;
+    sf::Text m_exitText;
     
     PauseOption selectedOption = PauseOption::Resume;
 
