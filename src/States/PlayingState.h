@@ -21,7 +21,7 @@ class PlayingState : public GameState {
 private:
     std::unique_ptr<PlayerPaddle> m_player;
     std::unique_ptr<BotPaddle> m_bot;
-    std::unique_ptr<Ball> m_ball;
+    std::shared_ptr<Ball> m_ball;
     UIManager m_uiManager;
     sf::Clock m_gameClock;
     sf::SoundBuffer m_hitBuffer;

@@ -1,6 +1,6 @@
 #include "EntityFactory.h"
 
-std::unique_ptr<Ball> EntityFactory::createBall() {
+std::shared_ptr<Ball> EntityFactory::createBall() {
     auto ball = std::make_unique<Ball>();
     return ball;
 }

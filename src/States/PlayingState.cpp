@@ -10,6 +10,7 @@ PlayingState::PlayingState(Game& g) : GameState(g) {
     m_bot = factory.createBotPaddle();
     m_ball = factory.createBall();
 
+    m_bot->setBall(m_ball);
     m_bot->setDifficulty(game.getDifficulty());
 
     if (!m_hitBuffer.loadFromFile("resources/hit.mp3")) {
@@ -49,7 +50,7 @@ void PlayingState::update(float dt) {
 
     m_player->update(dt);
 
-    m_bot->update(dt, *m_ball);
+    m_bot->update(dt);
 
     m_ball->update(dt);
     

@@ -9,12 +9,14 @@ void BotPaddle::setDifficulty(Difficulty diff) {
     }
 }
 
-void BotPaddle::update(float dt, const Ball& ball) {
+void BotPaddle::update(float dt) {
     Paddle::update(dt);
 
-    if (ball.getVelocity().x > 0) {
-        float ballY = ball.getPosition().y;
-        float paddleY = m_shape->getPosition().y;
+    if (!m_ball) return;
+
+    if (m_ball->getVelocity().x > 0) {
+        float ballY = m_ball->getPosition().y;
+        float paddleY = getPosition().y;
 
         float diff = ballY - paddleY;
         float botSpeed = m_speed * m_botSpeedFactor;
