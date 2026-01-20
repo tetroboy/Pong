@@ -14,6 +14,7 @@ namespace Constants {
     inline constexpr float BALL_INITIAL_SPEED = 350.0f;
     inline constexpr float BALL_MAX_SPEED = 800.0f;
     inline constexpr float BALL_SPEED_INCREASE = 50.0f;
+    inline constexpr float BALL_MAX_Y = 0.6f;
 
     inline constexpr float PADDLE_WIDTH = 20.0f;
     inline constexpr float PADDLE_HEIGHT = 100.0f;

@@ -4,6 +4,7 @@
 #include "States/GameState.h"
 #include "Managers/EntityFactory.h"
 #include "Managers/ScoreManager.h"
+#include "States/MenuState.h"
 
 class Game {
 private:

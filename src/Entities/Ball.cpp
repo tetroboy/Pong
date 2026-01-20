@@ -40,8 +40,7 @@ void Ball::bounceHorizontal(const sf::FloatRect& paddleBounds) {
     float hitOffset = (pos.y - paddleBounds.position.y - paddleBounds.size.y / 2.0f)
                     / (paddleBounds.size.y / 2.0f);
 
-    float maxY = 0.6f;
-    m_velocity.y = hitOffset * maxY;
+    m_velocity.y = hitOffset * Constants::BALL_MAX_Y;
 
     float length = std::hypot(m_velocity.x, m_velocity.y);
     if (length > 0.1f) {

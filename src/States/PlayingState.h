@@ -15,7 +15,7 @@ private:
     std::unique_ptr<PlayerPaddle> m_player;
     std::unique_ptr<BotPaddle> m_bot;
     std::shared_ptr<Ball> m_ball;
-    UIManager m_uiManager;
+    std::shared_ptr<UIManager> m_uiManager;
     sf::Clock m_gameClock;
     sf::SoundBuffer m_hitBuffer;
     sf::SoundBuffer m_goalBuffer;

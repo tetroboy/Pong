@@ -9,8 +9,10 @@ private:
     sf::Text m_playerText;
     sf::Text m_botText;
 
+    void animateScoreText(float textScale);
+
 public:
     UIManager();
     void onNotify(const ScoreManager& score, GameEvent event) override;
-    void render(sf::RenderWindow& window, int playerScore, int botScore);
+    void render(sf::RenderWindow& window);
 };

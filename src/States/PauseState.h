@@ -2,7 +2,6 @@
 #include "GameState.h"
 #include "PlayingState.h"
 #include "../Utils/Constants.h"
-#include <SFML/Graphics.hpp>
 
 class PauseState : public GameState {
 private:

@@ -1,8 +1,4 @@
 #include "Game.h"
-#include "States/MenuState.h"
-#include <thread>  
-#include <chrono>
-#include <iostream>
 
 Game::Game() 
     : m_window(sf::VideoMode(sf::Vector2u(Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT)), "Pong")  

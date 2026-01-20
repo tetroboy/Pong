@@ -7,8 +7,14 @@ GameOverState::GameOverState(Game& g, GameResult res) :
 {
     m_titleText.setFillColor(result == GameResult::Victory ? sf::Color::Green : sf::Color::Red);
     m_titleText.setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 4.0f));
-    result == GameResult::Victory ? m_titleText.setString("WIN!") : m_titleText.setString("LOSE!");
-    result == GameResult::Victory ? m_messageText.setString("You win!") : m_messageText.setString("You lose!");
+    if(result == GameResult::Victory){
+        m_titleText.setString("WIN!");
+        m_messageText.setString("You win!");
+    }
+    else{
+          m_titleText.setString("LOSE!");
+          m_messageText.setString("You lose!");
+    }
 
     m_messageText.setFillColor(sf::Color::White);
     m_messageText.setPosition(sf::Vector2f(Constants::SCREEN_WIDTH / 2.0f, Constants::SCREEN_HEIGHT / 2.0f));

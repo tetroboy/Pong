@@ -5,6 +5,7 @@
 PlayingState::PlayingState(Game& g) : GameState(g) {
     auto& factory = game.getFactory();
     auto& score = game.getScoreManager();
+    m_uiManager = std::make_shared<UIManager>();
 
     m_player = factory.createPlayerPaddle();
     m_bot = factory.createBotPaddle();
@@ -26,12 +27,12 @@ PlayingState::PlayingState(Game& g) : GameState(g) {
     m_hitSound->setVolume(Constants::HIT_SOUND_VOLUME);
     m_goalSound->setVolume(Constants::GOAL_SOUND_VOLUME);
 
-    score.registerObserver(std::shared_ptr<Observer>(&m_uiManager, [](Observer*){}));
+    score.registerObserver(m_uiManager);
     resetBall();
 }
 
 PlayingState::~PlayingState() {
-    game.getScoreManager().unregisterObserver(std::shared_ptr<Observer>(&m_uiManager, [](Observer*){}));
+    game.getScoreManager().unregisterObserver(m_uiManager);
 }
 
 void PlayingState::handleEvents(const sf::Event& event) {
@@ -110,7 +111,7 @@ void PlayingState::render(sf::RenderWindow& window) {
     m_bot->render(window);
     m_ball->render(window);
 
-    m_uiManager.render(window, game.getScoreManager().getPlayerScore(), game.getScoreManager().getBotScore());
+    m_uiManager->render(window);
 }
 
 void PlayingState::resetBall() {
