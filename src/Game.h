@@ -13,6 +13,7 @@ private:
     EntityFactory m_factory;
     ScoreManager m_scoreManager;
     Difficulty m_currentDifficulty = Difficulty::Normal;
+    std::vector<std::unique_ptr<GameState>> stateStack;
 public:
     Game();
     void run();
@@ -21,7 +22,11 @@ public:
     EntityFactory& getFactory() { return m_factory; }
     ScoreManager& getScoreManager() { return m_scoreManager; }
 
-    void changeState(std::unique_ptr<GameState> newState);
+    void pushState(std::unique_ptr<GameState> state);
+    void popState();
+    void changeState(std::unique_ptr<GameState> state);
+
+    GameState& getCurrentState();
 
     Difficulty getDifficulty() const { return m_currentDifficulty; }
     void setDifficulty(Difficulty diff) { m_currentDifficulty = diff; }

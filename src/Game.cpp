@@ -19,21 +19,37 @@ void Game::run() {
                 m_window.close();
             }
 
-            m_currentState->handleEvents(event);  
+            getCurrentState().handleEvents(event); 
         }
         
-        m_currentState->update(dt);
+        getCurrentState().update(dt);
 
         m_window.clear(sf::Color::Black);
         
-        m_currentState->render(m_window);
+        getCurrentState().render(m_window);
         
         m_window.display();
-        
-        
     }
 }
 
-void Game::changeState(std::unique_ptr<GameState> newState) {
-    m_currentState = std::move(newState);
+void Game::pushState(std::unique_ptr<GameState> state) {
+    stateStack.push_back(std::move(state));
+}
+
+void Game::popState() {
+    if (!stateStack.empty()) {
+        stateStack.pop_back();
+    }
+}
+
+void Game::changeState(std::unique_ptr<GameState> state) {
+    stateStack.clear();
+    stateStack.push_back(std::move(state));
+}
+
+GameState& Game::getCurrentState() {
+    if (stateStack.empty()) {
+        throw std::runtime_error("No active state!");
+    }
+    return *stateStack.back();
 }

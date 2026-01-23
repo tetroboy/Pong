@@ -24,8 +24,9 @@ void PauseState::handleEvents(const sf::Event& event) {
             selectedOption = (selectedOption == PauseOption::Resume) ? PauseOption::ExitToMenu : PauseOption::Resume;
         } else if (key->scancode == sf::Keyboard::Scancode::Enter || key->scancode == sf::Keyboard::Scancode::Escape) {
             if (selectedOption == PauseOption::Resume) {
-                game.changeState(std::make_unique<PlayingState>(game));
-            } else {
+                game.popState(); 
+            } 
+            else {
                 game.getWindow().close();
             }
         }

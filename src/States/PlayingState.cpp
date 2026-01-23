@@ -39,7 +39,7 @@ void PlayingState::handleEvents(const sf::Event& event) {
     if (event.is<sf::Event::KeyPressed>()) {
         if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) {
             if (keyPressed->scancode == sf::Keyboard::Scancode::Escape) {    
-                game.changeState(std::make_unique<PauseState>(game));
+                game.pushState(std::make_unique<PauseState>(game));
             }
         }
     }
